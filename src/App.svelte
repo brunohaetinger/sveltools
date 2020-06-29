@@ -1,6 +1,8 @@
 <script>
 	export let name;
 	import Numpad from './Numpad.svelte';
+	import Display from './Display.svelte';
+
 	let firstNumerator = '';
 	let secondNumerator = '';
 	let operator = '';
@@ -40,7 +42,7 @@
 
 	function calculate(firstNumerator, secondNumerator, operator){
 		if(!firstNumerator || !secondNumerator){
-			return null;
+			return '';
 		}
 		const firstNum = Number(firstNumerator);
 		const secondNum = Number(secondNumerator);
@@ -52,17 +54,14 @@
 			case '*':
 				return firstNum * secondNum;		
 			default:
-				return null;
+				return '';
 		}
 	}
 </script>
 <main>
 	<h1>Special {name}!</h1>
-	<h1>> {firstNumerator} {operator} {secondNumerator} </h1>
-	<!-- {#if !isNaN(result) && result}
-		<h1>= <strong>{result}</strong></h1>
-	{/if} -->
-		<h1>= <strong>{result ? result : '?'}</strong></h1>
+	<Display {firstNumerator} {secondNumerator} {operator}/>
+	<h1>= <strong>{result ? result : '?'}</strong></h1>
 	<Numpad on:btnValue={handleButtonClick}/>
 </main>
 <style>
